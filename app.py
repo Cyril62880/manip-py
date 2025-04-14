@@ -129,15 +129,13 @@ else:
         plt.ylabel('Nombre total d\'ingrédients')
         st.pyplot(plt)
 
-        # Graphique 3 : Top 10 des ingrédients les plus utilisés
-        st.subheader("Top 10 des ingrédients les plus utilisés")
-        ingredients = df['ingredients_text'].str.split(', ').explode()
-        top_ingredients = ingredients.value_counts().head(10)
-        plt.figure(figsize=(10, 6))
-        sns.barplot(x=top_ingredients.index, y=top_ingredients.values, palette='viridis')
-        plt.title('Top 10 des ingrédients les plus utilisés')
-        plt.xlabel('Ingrédients')
-        plt.ylabel('Nombre de recettes')
-        plt.xticks(rotation=45)
+        # Graphique 3 : Top 10 des recettes les plus complexes
+        st.subheader("Top 10 des recettes les plus complexes")
+        top_complex_recipes = df.nlargest(10, 'num_ingredients')
+        plt.figure(figsize=(10, 8))
+        sns.barplot(y=top_complex_recipes['title'], x=top_complex_recipes['num_ingredients'], palette='viridis')
+        plt.title('Top 10 des recettes les plus complexes')
+        plt.xlabel('Nombre d\'ingrédients')
+        plt.ylabel('Titre de la recette')
         st.pyplot(plt)
 
